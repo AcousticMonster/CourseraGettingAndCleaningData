@@ -34,6 +34,7 @@ The run_analysis.R file process the data in the following steps:
 2. Reads the various text dataset files using read.csv into three datasets (activityLabels, training, and testing).
 	* example: read.csv("UCI HAR Dataset/activity_labels.txt", sep="", header=FALSE)
 	* note: the UCI HAR Dataset folder must be located in your R working directory
+	* the data url is here: [Link to Data Zip File] (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
 
 3. The training and testing datasets are combined into one called "combinedReadings".
 
