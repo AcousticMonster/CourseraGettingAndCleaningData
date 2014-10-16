@@ -31,23 +31,20 @@ combinedReadings <- tbl_df(rbind_list(training, testing))
 ## from column names (for future subsetting)
 features <- tbl_df(read.csv("UCI HAR Dataset/features.txt", sep="", header=FALSE))
 
-features <- features %>% mutate(V2 = gsub('-mean', 'Mean', V2), ## remove the "-" from -mean
-                                V2 = gsub('-std', 'Std', V2), ## remove the "-" from -std
+## 1. Remove unwanted characters from column names
+features <- features %>% mutate(V2 = gsub('-mean', 'mean', V2), ## remove the "-" from -mean
+                                V2 = gsub('-std', 'std', V2), ## remove the "-" from -std
                                 V2 = gsub('[-()]', '', V2), ## remove the "()"
                                 V2 = gsub('[,]', '', V2) ## remove the ","
                                 ) 
 
 
-## Subset features lookup to use only the Mean and Standard Deviation columns
-## 1. Get the column numbers of the Mean/Std
-MeanStdCols <- features
-
 ## 2. Add the activity and subject entries
-MeanStdCols <- rbind(MeanStdCols, c(562, "activity"))
-MeanStdCols <- rbind(MeanStdCols, c(563, "subject"))
+features <- rbind(features, c(562, "activity"))
+features <- rbind(features, c(563, "subject"))
 
 ## 3. Replace head names with V2(column 2) of MeanStdCols
-colnames(combinedReadings) <- tolower(MeanStdCols[,2])
+colnames(combinedReadings) <- tolower(features[,2])
 
 ##----------------------------------------------------------------------------------
 
@@ -84,4 +81,3 @@ write.table(tidy, "tidy.txt", sep="\t", row.names=F)
 
 ##----------------------------
 ## rm(list=ls(all=TRUE)) <<-- uncomment to clear environment (if you wish)
-
